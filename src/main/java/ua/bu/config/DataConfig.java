@@ -44,7 +44,7 @@ public class DataConfig {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource());
         factoryBean.setJpaVendorAdapter(vendorAdapter());
-        factoryBean.setPackagesToScan("ua.bu.models");
+        factoryBean.setPackagesToScan("ua.bu");
         Properties properties = new Properties();
         properties.put("hibernate.hbm2ddl.auto", "create");
         factoryBean.setJpaProperties(properties);
