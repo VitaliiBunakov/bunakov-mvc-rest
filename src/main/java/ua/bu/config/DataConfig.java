@@ -22,7 +22,6 @@ public class DataConfig {
 
     @Bean
     public DataSource dataSource() {
-
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUsername("root");

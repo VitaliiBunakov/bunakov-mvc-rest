@@ -2,8 +2,7 @@ package ua.bu.dto;
 
 import ua.bu.models.User;
 
-//@JsonIgnoreProperties(ignoreUnknown = true, value = {"plainTextPassword,hashedPassword"})
-public class UserWithoutPass  {
+public class UserWithoutPass {
     private String id;
     private String firstName;
     private String lastName;
@@ -27,7 +26,6 @@ public class UserWithoutPass  {
 
     public UserWithoutPass(User user) {
         this.id = user.getId();
-
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.userName = user.getUserName();

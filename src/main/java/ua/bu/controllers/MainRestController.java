@@ -17,6 +17,7 @@ import ua.bu.dto.UserWithoutPass;
 import ua.bu.exeptions.UserAlreadyExistsExeption;
 import ua.bu.models.User;
 import ua.bu.service.UserRepositoryImpl;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -27,19 +28,23 @@ import java.util.UUID;
 public class MainRestController {
     @Autowired
     UserRepositoryImpl userService;
-    ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+    ObjectMapper mapper = new ObjectMapper()
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @GetMapping("/api/user")
-    public String all() throws JsonProcessingException {
+    public ResponseEntity<String> all() throws JsonProcessingException {
         List<User> all = userService.findAll();
-        return mapper.writeValueAsString(all);
+        return new ResponseEntity<String>( mapper.writeValueAsString(all),HttpStatus.OK);
     }
 
     @PostMapping("/api/user")
     public ResponseEntity<String> saveU(@RequestBody String userinp) throws IOException {
+
         User user = mapper.readValue(userinp, User.class);
-        if (!(user.getUserName().equals("")) & !(user.getPlainTextPassword().equals(""))) {
+        if (!(user.getUserName().isEmpty()) & !(user.getPlainTextPassword().isEmpty())) {
             user.setHashedPassword(passwordEncoder.encode(user.getPlainTextPassword()));
             user.setId(UUID.randomUUID().toString());
             try {
@@ -57,7 +62,6 @@ public class MainRestController {
                 return new ResponseEntity<String>( jERBody,HttpStatus.CONFLICT);
             }
         }
-
         return new ResponseEntity<String>("User data is unreadable!", HttpStatus.BAD_REQUEST);
 
     }

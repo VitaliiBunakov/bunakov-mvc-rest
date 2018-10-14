@@ -7,13 +7,12 @@ import org.springframework.stereotype.Service;
 import ua.bu.models.User;
 
 import java.util.List;
+
 @Repository
 public interface UserDAO extends JpaRepository<User, Integer> {
     User save(User user);
 
     List<User> findAll();
-
-    User findByUserName(String username);
 
     int countByUserName(String username);
 
