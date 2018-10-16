@@ -14,6 +14,7 @@ public interface UserDAO extends JpaRepository<User, Integer> {
 
     List<User> findAll();
 
+    //method that's help to  check is that user exist or no
     int countByUserName(String username);
 
 

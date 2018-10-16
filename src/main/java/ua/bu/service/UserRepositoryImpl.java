@@ -11,7 +11,7 @@ import java.util.List;
 public class UserRepositoryImpl implements UserRepository {
     @Autowired
     UserDAO userDAO;
-
+//to check is no one user with that name is in  base already
     @Override
     public int countByUserName(String username) {
         return userDAO.countByUserName(username);
@@ -25,7 +25,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User createUser(User user) throws UserAlreadyExistsExeption {
-        if (userDAO.countByUserName(user.getUserName()) < 1) {
+        if (userDAO.countByUserName(user.getUserName()) < 1) { //no users with  this username in base?
             userDAO.save(user);
             return user;
         } else {
